@@ -15,7 +15,7 @@ const generateToken = (id) => {
 // Register
 export const register = async (req, res) => {
   try {
-    const { name, email, password, role } = req.body;
+    const { name, email, password } = req.body;
 
     // Check if user exists
     const existingUser = await User.findOne({ email });
@@ -31,7 +31,7 @@ export const register = async (req, res) => {
       name,
       email,
       password: hashedPassword,
-      role,
+      role:"customer",
     });
 
     res.status(201).json({

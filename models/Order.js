@@ -1,57 +1,66 @@
 import mongoose from "mongoose";
 
 const orderItemSchema = new mongoose.Schema({
-    menuItem: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Menu",
-        required: true
-    },
-    quantity: {
-        type: Number,
-        required: true,
-        min: 1
-    },
-    price: {
-        type: Number,
-        required: true
-    }
+  menuItem: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Menu",
+    required: true,
+  },
+  quantity: {
+    type: Number,
+    required: true,
+    min: 1,
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
 });
 
-const orderSchema = new mongoose.Schema({
+const orderSchema = new mongoose.Schema(
+  {
+    orderType: {
+      type: String,
+      enum: ["dine-in", "takeaway", "delivery"],
+      default: "dine-in",
+    },
     table: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Table",
-        required: true
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Table",
+      required: false,
+      default: null,
     },
     items: [orderItemSchema],
     totalAmount: {
-        type: Number,
-        required: true
+      type: Number,
+      required: true,
     },
     status: {
-        type: String,
-        enum: ["pending", "preparing", "served", "completed", "cancelled"],
-        default: "pending"
+      type: String,
+      enum: ["pending", "preparing", "served", "completed", "cancelled"],
+      default: "pending",
     },
     paymentStatus: {
-        type: String,
-        enum: ["unpaid", "paid"],
-        default: "unpaid"
+      type: String,
+      enum: ["unpaid", "paid"],
+      default: "unpaid",
     },
     paymentMethod: {
-        type: String,
-        enum: ["cash", "card", "online"],
-        default: "cash"
+      type: String,
+      enum: ["cash", "card", "online"],
+      default: "cash",
     },
     customer: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-        default: null
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      default: null,
     },
     notes: {
-        type: String,
-        default: ""
-    }
-}, { timestamps: true });
+      type: String,
+      default: "",
+    },
+  },
+  { timestamps: true },
+);
 
 export default mongoose.model("Order", orderSchema);

@@ -6,15 +6,15 @@ import {
   updateTableStatus,
   deleteTable,
 } from "../controller/tableController.js";
-import protect from "../middleware/authMiddleware.js";
+import { authorize, protect } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
 // All routes are protected (need login)
-router.get("/", protect, getAllTables);
-router.get("/:id", protect, getTable);
-router.post("/", protect, createTable);
-router.put("/:id", protect, updateTableStatus);
-router.delete("/:id", protect, deleteTable);
+router.get("/", protect, authorize("admin", "waiter"), getAllTables);
+router.get("/:id", protect, authorize("admin", "waiter") ,getTable);
+router.post("/", protect, authorize("admin"), createTable);
+router.put("/:id", protect, authorize("admin","waiter"), updateTableStatus);
+router.delete("/:id", protect, authorize("admin"), deleteTable);
 
 export default router;
