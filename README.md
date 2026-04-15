@@ -165,7 +165,7 @@ STRIPE_SECRET_KEY=your_stripe_secret_key
 
 ```bash
 npm install
-npm run dev
+npm start
 ```
 
 ## CORS
