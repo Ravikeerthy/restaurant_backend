@@ -14,7 +14,7 @@ Keerthy's Kitchen backend powers authentication, role-based access control, menu
 Add your deployed backend URL here.
 
 ```text
-https://your-backend-url.onrender.com
+https://restaurant-backend-a9ca.onrender.com
 ```
 
 ## Tech Stack
