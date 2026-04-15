@@ -1,7 +1,7 @@
 import express from "express";
 
 import { protect, authorize } from "../middleware/authMiddleware.js";
-import { createStaffUser, deleteUser, getStaffUsers, updateUserRole } from "../controller/staffCOntroller.js";
+import { createStaffUser, deleteUser, getStaffUsers, updateUserRole } from "../controller/staffController.js";
 
 const router = express.Router();
 
