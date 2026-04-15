@@ -1,17 +1,21 @@
-# Keerthy's Kitchen Backend README
+# Keerthy's Kitchen Backend
+
+![Node.js](https://img.shields.io/badge/Node.js-Backend-green)
+![Express](https://img.shields.io/badge/Express-API-black)
+![MongoDB](https://img.shields.io/badge/MongoDB-Database-green)
+![Render](https://img.shields.io/badge/Render-Deployed-6C63FF)
 
 ## Overview
 
-This is the backend for **Keerthy's Kitchen**, built with **Node.js**, **Express**, **MongoDB**, and **Mongoose**.
+Keerthy's Kitchen backend powers authentication, role-based access control, menu and table management, orders, Stripe payment flow, and admin staff creation.
 
-It provides:
-- authentication
-- role-based authorization
-- menu APIs
-- table APIs
-- order APIs
-- payment APIs
-- staff management APIs
+## Live API
+
+Add your deployed backend URL here.
+
+```text
+https://your-backend-url.onrender.com
+```
 
 ## Tech Stack
 
@@ -24,7 +28,7 @@ It provides:
 - Stripe
 - CORS
 
-## Folder Structure
+## Project Structure
 
 ```text
 server/
@@ -39,7 +43,6 @@ server/
 ## Models
 
 ### User
-Fields:
 - name
 - email
 - password
@@ -52,7 +55,6 @@ Roles:
 - kitchen
 
 ### Menu
-Fields:
 - name
 - description
 - price
@@ -61,14 +63,12 @@ Fields:
 - isAvailable
 
 ### Table
-Fields:
 - tableNumber
 - capacity
 - status
 - currentOrder
 
 ### Order
-Fields:
 - orderType
 - table
 - items
@@ -78,30 +78,6 @@ Fields:
 - paymentMethod
 - customer
 - notes
-
-## Authentication
-
-### Public Register
-Public registration should create only:
-- `customer`
-
-### Login
-Returns:
-- JWT token
-- logged-in user info
-
-### Get Current User
-Protected route that returns current user details.
-
-## Middleware
-
-### `protect`
-- verifies JWT token
-- loads user from database
-- attaches user to `req.user`
-
-### `authorize(...roles)`
-- allows route access only for specific roles
 
 ## API Routes
 
@@ -142,6 +118,37 @@ Protected route that returns current user details.
 - `PUT /api/users/:id/role`
 - `DELETE /api/users/:id`
 
+## Example Request
+
+### Login
+```http
+POST /api/auth/login
+Content-Type: application/json
+```
+
+```json
+{
+  "email": "admin@test.com",
+  "password": "123456"
+}
+```
+
+### Create Staff
+```http
+POST /api/users/staff
+Authorization: Bearer <token>
+Content-Type: application/json
+```
+
+```json
+{
+  "name": "Kitchen User",
+  "email": "kitchen@test.com",
+  "password": "123456",
+  "role": "kitchen"
+}
+```
+
 ## Environment Variables
 
 Create a `.env` file in the backend root.
@@ -154,25 +161,28 @@ JWT_EXPIRE=1d
 STRIPE_SECRET_KEY=your_stripe_secret_key
 ```
 
-## Install and Run
+## Installation
 
 ```bash
 npm install
 npm run dev
 ```
 
+## CORS
+
+Allow both localhost and the deployed frontend URL.
+
+```js
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://keerthyrestaurantportfolio.netlify.app/"
+  ],
+  credentials: true,
+}));
 ```
 
-## Deployment on Render
-
-- deploy as a web service
-- add env vars in Render dashboard
-- use the Render API URL in frontend
-
+## Deployment
 ```
-
-```env
-VITE_API_URL=https://restaurant-backend-a9ca.onrender.com/api
+https://restaurant-backend-a9ca.onrender.com
 ```
-
-
