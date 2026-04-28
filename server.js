@@ -19,7 +19,7 @@ app.use(cors(
     {
         origin:[
             "http://localhost:5173",
-            "https://keerthyrestaurantportfolio.netlify.app/"
+            "https://keerthyrestaurantportfolio.netlify.app"
         ],
         credentials:true,
     }
