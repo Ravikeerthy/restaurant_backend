@@ -142,3 +142,61 @@ export const deleteOrder = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+//Customer Online Order
+export const createCustomerOrder = async (req, res) => {
+  try {
+    const { items, orderType, table, deliveryAddress } = req.body;
+
+    if (!items || items.length === 0) {
+      return res.status(400).json({ message: "Order items are required" });
+    }
+
+    const totalAmount = items.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0
+    );
+
+    const order = await Order.create({
+      customer: req.user._id,
+      items,
+      orderType,
+      table: orderType === "dine-in" ? table : null,
+      deliveryAddress,
+      totalAmount,
+      status: "pending",
+      paymentStatus: "pending",
+    });
+
+    res.status(201).json({
+      success: true,
+      message: "Order placed successfully",
+      order,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Customer order creation failed",
+      error: error.message,
+    });
+  }
+};
+
+// Get Customer Order Histroy
+export const getMyOrders = async (req, res) => {
+  try {
+    const orders = await Order.find({ customer: req.user._id })
+      .populate("items.menuItem")
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({
+      success: true,
+      count: orders.length,
+      orders,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to fetch order history",
+      error: error.message,
+    });
+  }
+};
