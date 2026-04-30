@@ -1,12 +1,6 @@
 import express from "express";
-import {
-  createReservation,
-  getMyReservations,
-  getAllReservations,
-  updateReservationStatus,
-} from "../controllers/reservationController.js";
-
 import { protect, authorize } from "../middleware/authMiddleware.js";
+import { createReservation, getAllReservations, getMyReservations, updateReservationStatus } from "../controller/reservationController.js";
 
 const router = express.Router();
 
