@@ -11,6 +11,7 @@ import tableRoutes from "./routes/tableRoutes.js"
 import orderRoutes from "./routes/orderRoutes.js"
 import paymentRoutes from "./routes/paymentRoutes.js"
 import staffRoutes from "./routes/staffRoutes.js"
+import reservationRoutes from "./routes/reservationRoutes.js"
 dotenv.config()
 
 const app = express();
@@ -32,6 +33,7 @@ app.use("/api/tables", tableRoutes)
 app.use("/api/orders", orderRoutes)
 app.use("/api/payments", paymentRoutes)
 app.use("/api/users", staffRoutes)
+app.use("/api/reservations", reservationRoutes)
 
 const port = process.env.PORT || 5000
 
