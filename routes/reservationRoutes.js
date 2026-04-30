@@ -4,8 +4,8 @@ import { createReservation, getAllReservations, getMyReservations, updateReserva
 
 const router = express.Router();
 
-router.post("/", protect, authorize("customer"), createReservation);
-router.get("/my-reservations", protect, authorize("customer"), getMyReservations);
+router.post("/", protect, authorize("customer", "user"), createReservation);
+router.get("/my-reservations", protect, authorize("customer", "user"), getMyReservations);
 router.get("/", protect, authorize("admin", "waiter"), getAllReservations);
 router.put("/:id/status", protect, authorize("admin", "waiter"), updateReservationStatus);
 
