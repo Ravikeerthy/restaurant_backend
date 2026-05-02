@@ -21,7 +21,9 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum: ["customer", "admin", "waiter", "kitchen"],
         default: "customer"
-    }
+    },
+     resetPasswordToken: String,
+    resetPasswordExpire: Date,
 }, { timestamps: true });
 
 export default mongoose.model("User", userSchema);
