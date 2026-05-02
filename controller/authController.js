@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import nodemailer from "nodemailer";
+import crypto from "crypto";
 
 dotenv.config();
 
@@ -188,7 +189,7 @@ export const forgotPassword = async (req, res) => {
 export const resetPassword = async (req, res) => {
   try {
     const resetPasswordToken = crypto
-      .createHash("sha256")
+       .createHash("sha256")
       .update(req.params.token)
       .digest("hex");
 
