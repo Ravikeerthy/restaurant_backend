@@ -159,7 +159,7 @@ export const forgotPassword = async (req, res) => {
 
     const { data, error } = await resend.emails.send({
       from: "GlowNest <onboarding@resend.dev>",
-      to: "ravikeerthy1807@gmail.com",
+      to: "rakeerthanavi@gmail.com",
       subject: "Password Reset Request",
       html: `
         <h2>Password Reset</h2>
