@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import nodemailer from "nodemailer";
 import crypto from "crypto";
+import { Resend } from "resend";
 
 dotenv.config();
 
